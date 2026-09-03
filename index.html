@@ -254,13 +254,15 @@
 
     .nav-dropdown:hover .nav-dropdown-trigger,
     .nav-dropdown:focus-within .nav-dropdown-trigger,
-    .nav-dropdown.aberto .nav-dropdown-trigger {
+    .nav-dropdown.aberto .nav-dropdown-trigger,
+    .nav-dropdown.active .nav-dropdown-trigger {
       color: var(--texto-claro);
     }
 
     .nav-dropdown:hover .nav-dropdown-trigger::after,
     .nav-dropdown:focus-within .nav-dropdown-trigger::after,
-    .nav-dropdown.aberto .nav-dropdown-trigger::after {
+    .nav-dropdown.aberto .nav-dropdown-trigger::after,
+    .nav-dropdown.active .nav-dropdown-trigger::after {
       width: 100%;
     }
 
@@ -275,7 +277,8 @@
 
     .nav-dropdown:hover .nav-dropdown-caret,
     .nav-dropdown:focus-within .nav-dropdown-caret,
-    .nav-dropdown.aberto .nav-dropdown-caret {
+    .nav-dropdown.aberto .nav-dropdown-caret,
+    .nav-dropdown.active .nav-dropdown-caret {
       transform: rotate(180deg);
     }
 
@@ -295,15 +298,16 @@
       gap: 2px;
       opacity: 0;
       visibility: hidden;
-      transform: translateX(-50%) translateY(-8px);
-      transition: all 0.3s ease; /* fade-in suave, conforme solicitado */
+      transform: translateX(-50%) translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
       z-index: 1200;
       overflow: hidden;
     }
 
     .nav-dropdown:hover .nav-dropdown-menu,
     .nav-dropdown:focus-within .nav-dropdown-menu,
-    .nav-dropdown.aberto .nav-dropdown-menu {
+    .nav-dropdown.aberto .nav-dropdown-menu,
+    .nav-dropdown.active .nav-dropdown-menu {
       opacity: 1;
       visibility: visible;
       transform: translateX(-50%) translateY(0);
@@ -378,16 +382,20 @@
 
     .menu-toggle span {
       width: 100%;
-      height: 1px;
+      height: 2px;
       background: var(--dourado);
-      transition: var(--transicao-suave);
+      transform-origin: center;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
     }
 
     /* Quando o menu está aberto (classe .aberto via JS), as barras
        viram um "X": a de cima e a de baixo giram, a do meio some. */
-    .menu-toggle.aberto span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
-    .menu-toggle.aberto span:nth-child(2) { opacity: 0; }
-    .menu-toggle.aberto span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+    .menu-toggle.aberto span:nth-child(1),
+    .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.aberto span:nth-child(2),
+    .menu-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .menu-toggle.aberto span:nth-child(3),
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* ==========================================================
        3. HERO SECTION
@@ -530,14 +538,23 @@
         align-items: flex-start;
         gap: 34px;
         padding: 0 42px;
+        opacity: 0;
         transform: translateX(100%);
         visibility: hidden;
         pointer-events: none;
-        transition: var(--transicao-suave);
+        transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease;
       }
 
       /* Classe adicionada/removida pelo JS ao clicar no hambúrguer */
       .nav-links.aberto {
+        opacity: 1;
+        transform: translateX(0);
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .nav-links.active {
+        opacity: 1;
         transform: translateX(0);
         visibility: visible;
         pointer-events: auto;
@@ -567,7 +584,8 @@
 
       .nav-dropdown:hover .nav-dropdown-menu,
       .nav-dropdown:focus-within .nav-dropdown-menu,
-      .nav-dropdown.aberto .nav-dropdown-menu {
+      .nav-dropdown.aberto .nav-dropdown-menu,
+      .nav-dropdown.active .nav-dropdown-menu {
         max-height: 320px;
         padding: 16px;
         border: 1px solid #cfa86e;
@@ -698,6 +716,52 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 30px;
+    }
+
+    .cardapio-cta {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .cardapio-cta-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 28px;
+      border: 1px solid #cfa86e;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #d96b27 0%, #c85f1f 100%);
+      color: #fff8f0;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cardapio-cta-link svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: #cfa86e;
+      stroke-width: 1.6;
+      transition: transform 0.3s ease;
+    }
+
+    .cardapio-cta-link:hover {
+      opacity: 0.92;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(217, 107, 39, 0.4);
+    }
+
+    .cardapio-cta-link:hover svg {
+      transform: translateX(4px);
+    }
+
+    .cardapio-cta-link:focus-visible {
+      outline: 2px solid #cfa86e;
+      outline-offset: 4px;
     }
 
     .card-prato {
@@ -1299,7 +1363,6 @@
 
     .btn-maps {
       display: inline-block;
-      margin-top: 12px;
       border: 1px solid var(--dourado);
       border-radius: var(--raio-botao);
       color: var(--dourado);
@@ -1315,6 +1378,66 @@
       color: var(--preto-fundo);
       transform: translateY(-4px);
       box-shadow: var(--glow-dourado), 0 14px 28px var(--dourado-suave);
+    }
+
+    .localizacao-acoes {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .localizacao-acoes .btn-maps,
+    .btn-contato-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 15px 24px;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
+    }
+
+    .btn-contato-whatsapp {
+      border: 1px solid #25d366;
+      border-radius: var(--raio-botao);
+      background: #25d366;
+      color: #102016;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .btn-contato-whatsapp svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .btn-contato-whatsapp:hover {
+      transform: translateY(-3px);
+      background: #20bd5a;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-contato-whatsapp:focus-visible {
+      outline: 2px solid var(--dourado);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .localizacao-acoes {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .localizacao-acoes .btn-maps,
+      .btn-contato-whatsapp {
+        width: 100%;
+      }
     }
 
     /* ==========================================================
@@ -1524,7 +1647,7 @@
       </div>
     </div>
 
-    <nav class="nav-links">
+    <nav class="nav-links" id="menu-principal">
       <a href="#hero">Início</a>
 
       <!-- Dropdown do Cardápio: funciona só com HTML/CSS.
@@ -1554,7 +1677,7 @@
     <a href="#reserva" class="btn-reservar-header">Reservar Mesa</a>
 
     <!-- Botão hambúrguer: só aparece no mobile (controlado via CSS) -->
-    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
       <span></span>
       <span></span>
       <span></span>
@@ -1694,6 +1817,15 @@
       </article>
 
     </div>
+
+    <div class="cardapio-cta" data-aos="fade-up" data-aos-delay="500">
+      <a class="cardapio-cta-link" href="https://nguests.com.br/cardapio/RestauranteHabacuque" target="_blank" rel="noopener noreferrer">
+        Acessar Cardápio Completo
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h13M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+    </div>
   </section>
 
   <!-- ===================== CANAIS & SERVIÇOS (Hub de Ações Rápidas) ===================== -->
@@ -1811,7 +1943,7 @@
   </section>
 
   <!-- ===================== LOCALIZAÇÃO & FACHADA ===================== -->
-  <section class="localizacao" id="localizacao">
+  <section class="localizacao" id="contato">
     <div class="localizacao-grid">
 
       <!-- Foto da fachada com moldura dourada -->
@@ -1853,9 +1985,17 @@
           </div>
         </div>
 
-        <a href="https://www.google.com/maps/search/?api=1&query=R.+Raimundo+Gadelha+Moura,+320+-+8+de+Setembro,+Tabuleiro+do+Norte+-+CE" target="_blank" rel="noopener noreferrer" class="btn-maps" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" data-aos-easing="ease-out">
-          Como Chegar (Google Maps)
-        </a>
+        <div class="localizacao-acoes">
+          <a href="https://www.google.com/maps/search/?api=1&query=R.+Raimundo+Gadelha+Moura,+320+-+8+de+Setembro,+Tabuleiro+do+Norte+-+CE" target="_blank" rel="noopener noreferrer" class="btn-maps" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" data-aos-easing="ease-out">
+            Como Chegar (Google Maps)
+          </a>
+          <a href="https://api.whatsapp.com/send?phone=5588997063930&text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20atendimento%20do%20Habacuque" target="_blank" rel="noopener noreferrer" class="btn-contato-whatsapp" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" data-aos-easing="ease-out">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2a9.9 9.9 0 0 0-8.55 14.9L2 22l5.25-1.38A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.08-1.12l-.3-.18-3.12.82.83-3.04-.2-.31A8 8 0 1 1 12 20Zm4.38-5.98c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06a6.57 6.57 0 0 1-1.93-1.19 7.23 7.23 0 0 1-1.33-1.65c-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.58.18 1.1.16 1.51.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/>
+            </svg>
+            Fale Conosco no WhatsApp
+          </a>
+        </div>
       </div>
 
     </div>
@@ -1890,7 +2030,7 @@
           <a href="#cardapio">Cardápio</a>
           <a href="#sobre">Sobre</a>
           <a href="#reserva">Reservas</a>
-          <a href="#localizacao">Localização</a>
+          <a href="#contato">Localização</a>
         </div>
       </div>
 
@@ -1949,8 +2089,12 @@
     const navLinks = document.querySelector('.nav-links');
 
     menuToggle.addEventListener('click', function () {
-      menuToggle.classList.toggle('aberto');
-      navLinks.classList.toggle('aberto');
+      const menuAberto = !navLinks.classList.contains('active');
+      menuToggle.classList.toggle('active', menuAberto);
+      menuToggle.classList.toggle('aberto', menuAberto);
+      navLinks.classList.toggle('active', menuAberto);
+      navLinks.classList.toggle('aberto', menuAberto);
+      menuToggle.setAttribute('aria-expanded', String(menuAberto));
     });
 
     // ==========================================================
@@ -1965,12 +2109,15 @@
 
     navDropdownTrigger.addEventListener('click', function (evento) {
       evento.stopPropagation(); // impede que o clique "vaze" pro listener do documento (abaixo)
-      navDropdown.classList.toggle('aberto');
+      const dropdownAberto = !navDropdown.classList.contains('active');
+      navDropdown.classList.toggle('active', dropdownAberto);
+      navDropdown.classList.toggle('aberto', dropdownAberto);
     });
 
     // Fecha o submenu se o usuário clicar em qualquer lugar fora dele
     document.addEventListener('click', function (evento) {
       if (!navDropdown.contains(evento.target)) {
+        navDropdown.classList.remove('active');
         navDropdown.classList.remove('aberto');
       }
     });
@@ -1978,8 +2125,12 @@
     // Fecha o menu mobile inteiro (e o submenu) ao clicar em um link de navegação
     navLinks.querySelectorAll('a, .nav-dropdown-link').forEach(function (link) {
       link.addEventListener('click', function () {
+        menuToggle.classList.remove('active');
         menuToggle.classList.remove('aberto');
+        navLinks.classList.remove('active');
         navLinks.classList.remove('aberto');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        navDropdown.classList.remove('active');
         navDropdown.classList.remove('aberto');
       });
     });
