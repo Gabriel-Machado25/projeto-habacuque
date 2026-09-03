@@ -537,40 +537,56 @@
       .nav-links,
       .nav-menu,
       .mobile-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        height: auto;
-        max-height: none;
-        overflow: visible;
-        box-sizing: border-box;
-        padding: 20px 0;
-        border-left: 1px solid rgba(212, 175, 55, 0.15);
+        position: fixed !important;
+        top: 0;
+        right: -100%;
+        left: auto;
+        width: 80%;
+        max-width: 320px;
+        height: 100vh !important;
+        background: #120C0A !important;
+        z-index: 9999;
+        display: flex;
         flex-direction: column;
-        justify-content: center;
+        box-sizing: border-box;
+        padding: 80px 24px 30px 24px;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.8);
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        border-left: 1px solid rgba(212, 175, 55, 0.15);
+        justify-content: flex-start;
         align-items: flex-start;
         gap: 34px;
-        opacity: 0;
-        transform: translateX(100%);
-        visibility: hidden;
         pointer-events: none;
-        transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease;
       }
 
-      /* Classe adicionada/removida pelo JS ao clicar no hambúrguer */
-      .nav-links.aberto {
-        opacity: 1;
-        transform: translateX(0);
-        visibility: visible;
+      .nav-links.aberto,
+      .nav-links.active,
+      .nav-menu.active,
+      .mobile-menu.active {
+        right: 0 !important;
         pointer-events: auto;
       }
 
-      .nav-links.active {
-        opacity: 1;
-        transform: translateX(0);
-        visibility: visible;
-        pointer-events: auto;
+      .nav-links > a,
+      .nav-menu > a,
+      .mobile-menu > a {
+        width: 100%;
+        padding: 10px 0;
+        text-align: left;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(207, 168, 110, 0.15);
+      }
+
+      .nav-dropdown {
+        width: 100%;
+      }
+
+      .nav-dropdown-trigger {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 10px 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(207, 168, 110, 0.15);
       }
 
       .btn-reservar-header { display: none; }
@@ -578,6 +594,14 @@
         display: flex;
         flex-shrink: 0;
         margin-left: auto;
+      }
+
+      .menu-toggle.active,
+      .menu-toggle.aberto {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 10000;
       }
       .header {
         padding: 12px 16px;
