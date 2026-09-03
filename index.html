@@ -28,6 +28,14 @@
       --fonte-titulo: 'Cinzel', serif;
       --fonte-corpo: 'Montserrat', sans-serif;
       --transicao-suave: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+      /* ---- Novo sistema visual "flutuante" (inspirado no La Brochette) ---- */
+      --raio-card: 16px;        /* cantos suaves de cards, contêineres e imagens */
+      --raio-botao: 50px;       /* botões em cápsula */
+      --raio-botao-sm: 8px;     /* botões pequenos/outline mais discretos */
+      --borda-dourada-fina: 1px solid rgba(207, 168, 110, 0.2);
+      --glow-dourado: 0 8px 32px rgba(207, 168, 110, 0.12);
+      --fundo-vidro: rgba(18, 12, 10, 0.85); /* fundo translúcido dos cards */
     }
 
     * {
@@ -61,17 +69,20 @@
        ========================================================== */
     .header {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(94%, 1320px);
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 5%;
-      background: rgba(13, 13, 13, 0.75);
-      backdrop-filter: blur(8px); /* efeito de vidro fosco, dá sofisticação */
-      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      padding: 18px 34px;
+      border-radius: 18px; /* navbar "flutuante", cantos suaves em vez de barra reta */
+      background: rgba(13, 13, 13, 0.6);
+      backdrop-filter: blur(12px); /* vidro fosco mais acentuado, pedido explicitamente */
+      border-bottom: 1px solid rgba(207, 168, 110, 0.18); /* linha dourada discreta */
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
       transition: var(--transicao-suave);
     }
 
@@ -198,8 +209,11 @@
       top: calc(100% + 24px);
       left: 50%;
       min-width: 300px;
-      background: #120c0a;
-      border: 1px solid #cfa86e;
+      background: var(--fundo-vidro);
+      backdrop-filter: blur(10px);
+      border: var(--borda-dourada-fina);
+      border-radius: 12px; /* valor explícito pedido para o dropdown */
+      box-shadow: var(--glow-dourado);
       padding: 22px;
       display: flex;
       flex-direction: column;
@@ -207,8 +221,9 @@
       opacity: 0;
       visibility: hidden;
       transform: translateX(-50%) translateY(-8px);
-      transition: var(--transicao-suave);
+      transition: all 0.3s ease; /* fade-in suave, conforme solicitado */
       z-index: 1200;
+      overflow: hidden;
     }
 
     .nav-dropdown:hover .nav-dropdown-menu,
@@ -222,23 +237,25 @@
     .nav-dropdown-link {
       font-size: 0.82rem;
       color: var(--texto-muted);
-      padding: 11px 8px;
+      padding: 11px 12px;
+      border-radius: var(--raio-botao-sm);
       border-bottom: 1px solid rgba(207, 168, 110, 0.12);
       transition: var(--transicao-suave);
     }
 
     .nav-dropdown-link:hover {
       color: #cfa86e;
-      padding-left: 14px;
+      padding-left: 16px;
+      background: rgba(207, 168, 110, 0.06);
     }
 
     .nav-dropdown-cta {
-      
       margin-top: 14px;
-      background: #0302009a;
+      background: var var(--preto-fundo);
       color: #120c0a;
       text-align: center;
-      padding: 13px 16px;
+      padding: 14px 16px;
+      border-radius: var(--raio-botao);
       font-size: 0.7rem;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -248,11 +265,13 @@
 
     .nav-dropdown-cta:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 26px rgba(207, 168, 110, 0.35);
+      box-shadow: var(--glow-dourado), 0 12px 26px rgba(207, 168, 110, 0.35);
     }
 
     .btn-reservar-header {
-      border: 1px solid var(--dourado);
+      border: var(--borda-dourada-fina);
+      border-color: var(--dourado);
+      border-radius: var(--raio-botao);
       color: var(--dourado);
       padding: 11px 26px;
       font-size: 0.75rem;
@@ -265,7 +284,7 @@
       background: var(--dourado);
       color: var(--preto-fundo);
       transform: translateY(-4px);
-      box-shadow: 0 10px 25px var(--dourado-suave);
+      box-shadow: var(--glow-dourado), 0 10px 25px var(--dourado-suave);
     }
 
     /* Botão hambúrguer: 3 barrinhas via <span>, escondido no desktop */
@@ -365,6 +384,7 @@
 
     .btn {
       padding: 16px 38px;
+      border-radius: var(--raio-botao);
       font-size: 0.8rem;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -382,7 +402,7 @@
 
     .btn-primario:hover {
       transform: translateY(-4px);
-      box-shadow: 0 14px 30px var(--dourado-suave);
+      box-shadow: var(--glow-dourado), 0 14px 30px var(--dourado-suave);
       filter: brightness(1.08);
     }
 
@@ -397,6 +417,7 @@
       border-color: var(--dourado);
       color: var(--dourado);
       transform: translateY(-4px);
+      box-shadow: var(--glow-dourado);
     }
 
     /* Indicador de scroll no rodapé do hero, sutil e elegante */
@@ -445,7 +466,7 @@
 
       .btn-reservar-header { display: none; }
       .menu-toggle { display: flex; }
-      .header { padding: 18px 6%; }
+      .header { padding: 14px 22px; top: 12px; }
       .hero-buttons { flex-direction: column; align-items: center; }
       .btn { width: 100%; max-width: 280px; text-align: center; }
 
@@ -471,6 +492,7 @@
         max-height: 320px;
         padding: 16px;
         border: 1px solid #cfa86e;
+        border-radius: 12px;
         margin-top: 14px;
       }
     }
@@ -533,11 +555,18 @@
     }
 
     /* A "moldura desbotada": um padding + borda dourada translúcida
-       ao redor da foto, exatamente como no print de referência. */
+       ao redor da foto, agora com cantos suaves e glow no hover. */
     .sobre-moldura {
       position: relative;
       padding: 18px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: var(--raio-card);
+      border: var(--borda-dourada-fina);
+      transition: var(--transicao-suave);
+    }
+
+    .sobre-moldura:hover {
+      box-shadow: var(--glow-dourado);
+      transform: translateY(-4px);
     }
 
     .sobre-moldura::before {
@@ -545,11 +574,13 @@
       position: absolute;
       inset: 8px;
       border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: calc(var(--raio-card) - 6px);
       pointer-events: none;
     }
 
     .sobre-moldura img {
       width: 100%;
+      border-radius: calc(var(--raio-card) - 8px);
       height: 520px;
       object-fit: cover;
       filter: grayscale(8%) contrast(1.05);
@@ -591,24 +622,27 @@
     }
 
     .card-prato {
-      background: var(--preto-fundo);
-      border: 1px solid rgba(212, 175, 55, 0.12);
+      background: var(--fundo-vidro);
+      backdrop-filter: blur(10px);
+      border-radius: var(--raio-card);
+      border: var(--borda-dourada-fina);
       text-align: left;
       overflow: hidden;
       transition: var(--transicao-suave);
     }
 
-    /* Sobe suavemente + ganha borda e sombra douradas no hover */
+    /* Sobe suavemente + ganha glow dourado suave no hover (sem sombra preta pesada) */
     .card-prato:hover {
       transform: translateY(-10px);
-      border-color: rgba(212, 175, 55, 0.5);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px var(--dourado-suave);
+      border-color: rgba(207, 168, 110, 0.45);
+      box-shadow: var(--glow-dourado), 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
     .card-prato-imagem {
       width: 100%;
       height: 210px;
       overflow: hidden;
+      border-radius: calc(var(--raio-card) - 2px) calc(var(--raio-card) - 2px) 0 0;
     }
 
     .card-prato-imagem img {
@@ -624,7 +658,7 @@
     }
 
     .card-prato-corpo {
-      padding: 26px 22px 30px;
+      padding: 30px 26px 34px;
     }
 
     .card-prato-categoria {
@@ -731,13 +765,38 @@
     }
 
     .servico-card {
+      position: relative;
+      overflow: hidden; /* necessário para o "preenchimento" não vazar do card arredondado */
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 14px;
-      padding: 40px 20px;
-      border: 1px solid rgba(212, 175, 55, 0.15);
+      padding: 46px 26px;
+      background: var(--fundo-vidro);
+      backdrop-filter: blur(10px);
+      border-radius: var(--raio-card);
+      border: var(--borda-dourada-fina);
       transition: var(--transicao-suave);
+    }
+
+    /* ---------- MICRO-INTERAÇÃO: preenchimento suave no hover ----------
+       Técnica: um pseudo-elemento ::before cobre todo o card, mas começa
+       "encolhido" horizontalmente (scaleX(0), ancorado à esquerda).
+       No hover, ele "cresce" até cobrir 100% da largura — dando a
+       sensação de a cor preenchendo o botão da esquerda pra direita.
+       Como ::before é pintado ANTES do conteúdo real (ícone/texto),
+       ele fica visualmente "atrás" deles sem precisar de z-index manual. */
+    .servico-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .servico-card:hover::before {
+      transform: scaleX(1);
     }
 
     .servico-card svg {
@@ -769,11 +828,14 @@
       color: #fff8f0;
     }
 
+    /* Preenchimento: um clarão sutil "varre" o botão já laranja */
+    .servico-primario::before { background: rgba(255, 255, 255, 0.14); }
+
     .servico-primario svg { stroke: #fff8f0; }
 
     .servico-primario:hover {
       transform: translateY(-8px);
-      box-shadow: 0 18px 34px rgba(217, 107, 39, 0.35);
+      box-shadow: 0 8px 32px rgba(217, 107, 39, 0.25), 0 18px 34px rgba(217, 107, 39, 0.35);
       filter: brightness(1.05);
     }
 
@@ -783,12 +845,15 @@
       color: var(--dourado);
     }
 
+    /* Preenchimento: o card, antes "vazio", ganha um tom dourado translúcido */
+    .servico-outline-dourado::before { background: rgba(212, 175, 55, 0.1); }
+
     .servico-outline-dourado svg { stroke: var(--dourado); }
 
     .servico-outline-dourado:hover {
-      background: rgba(212, 175, 55, 0.06);
       border-color: var(--dourado);
       transform: translateY(-8px);
+      box-shadow: var(--glow-dourado);
     }
 
     /* Variação 3 — Outline neutro (SAC): hierarquia mais discreta,
@@ -798,12 +863,16 @@
       border-color: rgba(245, 241, 232, 0.15);
     }
 
+    /* Preenchimento mais discreto, condizente com a hierarquia do card */
+    .servico-outline::before { background: rgba(245, 241, 232, 0.05); }
+
     .servico-outline svg { stroke: var(--texto-muted); }
 
     .servico-outline:hover {
       border-color: rgba(245, 241, 232, 0.4);
       color: var(--texto-claro);
       transform: translateY(-8px);
+      box-shadow: 0 8px 32px rgba(245, 241, 232, 0.06);
     }
 
     .servico-outline:hover svg { stroke: var(--texto-claro); }
@@ -813,12 +882,17 @@
       color: var(--texto-muted);
     }
 
+    /* Preenchimento: o mesmo tom dourado translúcido do card de avaliação,
+       reforçando a identidade visual entre os cards de "canal externo" */
+    .servico-icone::before { background: rgba(212, 175, 55, 0.1); }
+
     .servico-icone svg { stroke: var(--dourado); }
 
     .servico-icone:hover {
       border-color: var(--dourado);
       color: var(--dourado);
       transform: translateY(-8px);
+      box-shadow: var(--glow-dourado);
     }
 
     /* ==========================================================
@@ -859,16 +933,18 @@
     }
 
     .card-experiencia {
-      padding: 42px 24px;
+      padding: 46px 26px;
       text-align: center;
-      border: 1px solid rgba(212, 175, 55, 0.12);
+      border-radius: var(--raio-card);
+      border: var(--borda-dourada-fina);
       transition: var(--transicao-suave);
     }
 
     .card-experiencia:hover {
       transform: translateY(-6px);
-      border-color: rgba(212, 175, 55, 0.45);
+      border-color: rgba(207, 168, 110, 0.4);
       background: rgba(212, 175, 55, 0.04);
+      box-shadow: var(--glow-dourado);
     }
 
     .card-experiencia svg {
@@ -965,7 +1041,8 @@
 
     .form-grupo input {
       background: rgba(245, 241, 232, 0.04);
-      border: 1px solid rgba(212, 175, 55, 0.25);
+      border: var(--borda-dourada-fina);
+      border-radius: var(--raio-botao-sm);
       color: var(--texto-claro);
       font-family: var(--fonte-corpo);
       font-size: 0.9rem;
@@ -979,6 +1056,7 @@
       outline: none;
       border-color: var(--dourado);
       background: rgba(245, 241, 232, 0.07);
+      box-shadow: var(--glow-dourado);
     }
 
     /* Ajuste visual do seletor nativo de data/hora no tema escuro */
@@ -989,11 +1067,14 @@
     }
 
     .btn-whatsapp {
+      position: relative;
+      overflow: hidden;
       grid-column: 1 / -1;
       margin-top: 12px;
       background: #d96b27;
       color: #fff8f0;
       border: 1px solid #d96b27;
+      border-radius: var(--raio-botao);
       padding: 18px 30px;
       font-size: 0.85rem;
       font-weight: 600;
@@ -1003,10 +1084,25 @@
       transition: var(--transicao-suave);
     }
 
+    /* Mesma técnica de preenchimento usada nos cards de serviço */
+    .btn-whatsapp::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.14);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .btn-whatsapp:hover::before {
+      transform: scaleX(1);
+    }
+
     .btn-whatsapp:hover {
       transform: translateY(-4px);
       background: #c85f1f;
-      box-shadow: 0 16px 32px rgba(217, 107, 39, 0.35);
+      box-shadow: 0 8px 32px rgba(217, 107, 39, 0.2), 0 16px 32px rgba(217, 107, 39, 0.35);
     }
 
     /* ---------- Responsividade ---------- */
@@ -1042,7 +1138,14 @@
     .localizacao-moldura {
       position: relative;
       padding: 18px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: var(--raio-card);
+      border: var(--borda-dourada-fina);
+      transition: var(--transicao-suave);
+    }
+
+    .localizacao-moldura:hover {
+      box-shadow: var(--glow-dourado);
+      transform: translateY(-4px);
     }
 
     .localizacao-moldura::before {
@@ -1050,6 +1153,7 @@
       position: absolute;
       inset: 8px;
       border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: calc(var(--raio-card) - 6px);
       pointer-events: none;
     }
 
@@ -1057,6 +1161,7 @@
       width: 100%;
       height: 460px;
       object-fit: cover;
+      border-radius: calc(var(--raio-card) - 8px);
     }
 
     .localizacao-eyebrow {
@@ -1111,6 +1216,7 @@
       display: inline-block;
       margin-top: 12px;
       border: 1px solid var(--dourado);
+      border-radius: var(--raio-botao);
       color: var(--dourado);
       padding: 15px 34px;
       font-size: 0.78rem;
@@ -1123,7 +1229,7 @@
       background: var(--dourado);
       color: var(--preto-fundo);
       transform: translateY(-4px);
-      box-shadow: 0 14px 28px var(--dourado-suave);
+      box-shadow: var(--glow-dourado), 0 14px 28px var(--dourado-suave);
     }
 
     /* ==========================================================
@@ -1197,7 +1303,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      border: var(--borda-dourada-fina);
       transition: var(--transicao-suave);
     }
 
@@ -1212,6 +1319,7 @@
 
     .footer-social a:hover {
       background: var(--dourado);
+      box-shadow: var(--glow-dourado);
       transform: translateY(-4px);
     }
 
@@ -1267,7 +1375,7 @@
           <a href="#cardapio" class="nav-dropdown-link">Massas</a>
           <a href="#cardapio" class="nav-dropdown-link">Entradas</a>
           <a href="https://3guests.com/habacuque" target="_blank" rel="noopener noreferrer" class="nav-dropdown-cta">
-            Acessar Cardápio Digital Completo (3Guests)
+            Ver Cardápio Digital Completo (3Guests)
           </a>
         </div>
       </div>
