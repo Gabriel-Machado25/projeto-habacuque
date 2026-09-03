@@ -50,6 +50,16 @@
       overflow-x: clip;
     }
 
+    /* O conteúdo permanece visível se o JavaScript ou o AOS não carregar. */
+    html:not(.aos-enabled) [data-aos] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    [data-aos] {
+      transition-timing-function: ease-out !important;
+    }
+
     body {
       background-color: var(--preto-fundo);
       color: var(--texto-claro);
@@ -1503,18 +1513,18 @@
   <!-- ===================== HERO SECTION ===================== -->
   <section class="hero" id="hero">
     <div class="hero-content">
-      <p class="hero-eyebrow" data-aos="fade-down" data-aos-duration="900">Desde a brasa à mesa</p>
+      <p class="hero-eyebrow" data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-out">Desde a brasa à mesa</p>
 
-      <h1 class="hero-title" data-aos="fade-up" data-aos-duration="900" data-aos-delay="150">
+      <h1 class="hero-title" data-aos="fade-up" data-aos-duration="900" data-aos-delay="150" data-aos-easing="ease-out">
         HABACUQUE RESTAURANTE
       </h1>
 
-      <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300">
+      <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="900" data-aos-delay="300" data-aos-easing="ease-out">
         Tradição familiar, ingredientes selecionados e o sabor autêntico
         que atravessa gerações — cada prato contado como uma história.
       </p>
 
-      <div class="hero-buttons" data-aos="fade-up" data-aos-duration="900" data-aos-delay="450">
+      <div class="hero-buttons" data-aos="fade-up" data-aos-duration="900" data-aos-delay="450" data-aos-easing="ease-out">
         <a href="#cardapio" class="btn btn-secundario">Ver Cardápio</a>
         <a href="#reserva" class="btn btn-primario">Fazer Reserva</a>
       </div>
@@ -1528,7 +1538,7 @@
     <div class="sobre-grid">
 
       <!-- Coluna de texto -->
-      <div data-aos="fade-right" data-aos-duration="1000">
+      <div data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out">
         <span class="sobre-eyebrow">Nossa História</span>
         <h2 class="sobre-titulo">
           <strong>Mais de 11 anos</strong> de tradição em Tabuleiro do Norte
@@ -1548,7 +1558,7 @@
       </div>
 
       <!-- Coluna de imagem com moldura dourada -->
-      <div class="sobre-moldura" data-aos="fade-left" data-aos-duration="1000">
+      <div class="sobre-moldura" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150" data-aos-easing="ease-out">
         <img
           src="imagens/Captura de tela 2026-09-03 011704.png"
           alt="Mesa posta do restaurante Habacuque, com talheres e taças dispostos elegantemente">
@@ -1559,7 +1569,7 @@
 
   <!-- ===================== DESTAQUES DO CARDÁPIO ===================== -->
   <section class="destaques" id="cardapio">
-    <div class="destaques-header" data-aos="fade-up" data-aos-duration="900">
+    <div class="destaques-header" data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-out">
       <h2 class="destaques-titulo">Destaques do Cardápio</h2>
       <p class="destaques-subtitulo">
         Uma seleção dos pratos que definem a experiência Habacuque
@@ -1637,7 +1647,7 @@
 
   <!-- ===================== CANAIS & SERVIÇOS (Hub de Ações Rápidas) ===================== -->
   <section class="servicos" id="servicos">
-    <div class="servicos-header" data-aos="fade-up" data-aos-duration="900">
+    <div class="servicos-header" data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-out">
       <h2 class="servicos-titulo">Canais &amp; Serviços</h2>
       <p class="servicos-subtitulo">Fale com a gente pelo canal mais conveniente para você</p>
     </div>
@@ -1679,7 +1689,7 @@
 
   <!-- ===================== EXPERIÊNCIA / DIFERENCIAIS ===================== -->
   <section class="experiencia" id="experiencia">
-    <div class="experiencia-header" data-aos="fade-up" data-aos-duration="900">
+    <div class="experiencia-header" data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-out">
       <h2 class="experiencia-titulo">A Experiência Habacuque</h2>
       <p class="experiencia-subtitulo">Pensada em cada detalhe, para toda a família</p>
     </div>
@@ -1715,7 +1725,7 @@
 
   <!-- ===================== RESERVAS VIA WHATSAPP ===================== -->
   <section class="reservas" id="reserva">
-    <div class="reservas-container" data-aos="fade-up" data-aos-duration="1000">
+    <div class="reservas-container" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out">
       <span class="reservas-eyebrow">Reserve sua mesa</span>
       <h2 class="reservas-titulo">Sua Mesa em Segundos</h2>
       <p class="reservas-subtitulo">
@@ -1754,13 +1764,13 @@
     <div class="localizacao-grid">
 
       <!-- Foto da fachada com moldura dourada -->
-      <div class="localizacao-moldura" data-aos="fade-right" data-aos-duration="1000">
+      <div class="localizacao-moldura" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-out">
         <!-- Classe "img-fachada" facilita achar e trocar essa foto depois -->
         <img class="img-fachada" src="imagens/Captura de tela 2026-09-03 012319.png" alt="Fachada elegante do restaurante Habacuque em Tabuleiro do Norte">
       </div>
 
       <!-- Informações -->
-      <div data-aos="fade-left" data-aos-duration="1000">
+      <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150" data-aos-easing="ease-out">
         <span class="localizacao-eyebrow">Onde Estamos</span>
         <h2 class="localizacao-titulo">Venha nos visitar</h2>
 
@@ -1812,7 +1822,7 @@
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
-    <div class="footer-grid">
+    <div class="footer-grid" data-aos="fade-up" data-aos-duration="900" data-aos-easing="ease-out">
 
       <div>
         <p class="footer-logo">HABACUQUE</p>
@@ -1844,7 +1854,7 @@
 
     </div>
 
-    <div class="footer-bottom">
+    <div class="footer-bottom" data-aos="fade-up" data-aos-duration="900" data-aos-delay="150" data-aos-easing="ease-out">
       <p>&copy; 2026 Habacuque Restaurante. Todos os direitos reservados.</p>
       <p>Tabuleiro do Norte – CE</p>
     </div>
@@ -1862,10 +1872,14 @@
     // "once: true": a animação acontece só na primeira vez que o
     // elemento entra na tela (evita repetição ao rolar pra cima/baixo).
     // ==========================================================
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
+    if (window.AOS) {
+      document.documentElement.classList.add('aos-enabled');
+      AOS.init({
+        duration: 900,
+        easing: 'ease-out',
+        once: true
+      });
+    }
 
     // ==========================================================
     // 2. MENU HAMBÚRGUER (mobile)
